@@ -1,4 +1,4 @@
-import { Client, Guild, Role } from 'discord.js';
+import { CategoryChannel, Client, Guild, GuildChannel, Role } from 'discord.js';
 import messages from './messages';
 import IDs from './IDs';
 import roles from './roles';
@@ -48,7 +48,7 @@ client.on('message', async (message) => {
         const splitMessageTemp = message.content.split(",");
         const splitMessage = splitMessageTemp.map(value => value.trim());
     
-        if(splitMessage.length > 2) return message.reply("Too many arguments bro");
+        if(splitMessage.length > 3) return message.reply("Too many arguments bro");
       
         const guild = client.guilds.cache.get(IDs.guildID);
         const command = splitMessage[0].slice(1);
@@ -61,7 +61,10 @@ client.on('message', async (message) => {
           case ('create'):
             const groupName = splitMessage[1];
     
-            if(!groupName) return botMessage = message.reply("Say the name of your squad!");
+            if(!groupName) {
+              botMessage = await message.reply("Say the name of your squad!");
+              break;
+            }
     
             const roleCreated = await guild.roles.create({
               data: {
@@ -76,7 +79,7 @@ client.on('message', async (message) => {
 
             await createSquadChannel(roleCreated, message.guild);
     
-            botMessage = message.reply("Squad created! Check your PV to get the ID and call your squad to enter with join Command!");
+            botMessage = await message.reply("Squad created! Check your PV to get the ID and call your squad to enter with join Command!");
     
             break;
     
@@ -86,13 +89,38 @@ client.on('message', async (message) => {
             const role = await guild.roles.fetch(roleID);
     
             message.member.roles.add(role);
-            botMessage = message.reply(`Congratulations, you are in **${role.name}** now!`);
-            message.delete();
+            botMessage = await message.reply(`Congratulations, you are in **${role.name}** now!`);
     
             break;
     
+          case('change'):
+            const roleOldName = splitMessage[1];
+            const roleNewName = splitMessage[2];
+
+            const category:CategoryChannel = guild.channels.cache.reduce((total, value) => {
+              if (total != null) return total;
+              if (value.name === roleOldName && value.type === "category") return value;
+              return null;
+            }, null);
+
+            const changedRoleID = category.permissionOverwrites.reduce((total, value) => {
+              return value.id;
+            }, null);
+
+            const roleChanged = await guild.roles.fetch(changedRoleID);
+
+            roleChanged.edit({
+              name: roleNewName
+            });
+
+            category.edit({
+              name: roleNewName
+            });
+
+            break;
+
           default:
-            botMessage = message.reply("That is not a valid command!");
+            botMessage = await message.reply("That is not a valid command!");
             break;
         }
       }
