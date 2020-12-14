@@ -1,11 +1,11 @@
 import { CategoryChannel, Client, Guild, GuildChannel, Role } from 'discord.js';
-import messages from './messages';
-import IDs from './IDs';
-import roles from './roles';
+import messages from './utils/messages';
+import IDs from './utils/IDs';
+import roles from './utils/roles';
+import usages from './utils';
+import utils from './utils';
 
 const client = new Client();
-
-const callBot = "!";
 
 roles();
 
@@ -41,24 +41,24 @@ async function createSquadChannel(role:Role, guild:Guild) {
 
 client.on('message', async (message) => {
   try{
-    if(message.content[0] === callBot){
+    if(message.content[0] === usages.callBot){
       let botMessage = null;
 
       if(message.channel.id === IDs.commandChannelID){
-        const splitMessageTemp = message.content.split(",");
+        const splitMessageTemp = message.content.split(usages.splitTerm);
         const splitMessage = splitMessageTemp.map(value => value.trim());
     
-        if(splitMessage.length > 3) return message.reply("Too many arguments bro");
+        if(splitMessage.length > 3) return message.reply("Wrong arguments");
       
         const guild = client.guilds.cache.get(IDs.guildID);
         const command = splitMessage[0].slice(1);
     
         switch (command) {
-          case ('help'):
+          case (usages.commandKeys.helpCommand):
             message.author.send(messages.helpMessage);
             break;
     
-          case ('create'):
+          case (usages.commandKeys.createCommand):
             const groupName = splitMessage[1];
     
             if(!groupName) {
@@ -83,7 +83,7 @@ client.on('message', async (message) => {
     
             break;
     
-          case ('join'):
+          case (usages.commandKeys.joinCommand):
             const roleID = splitMessage[1];
     
             const role = await guild.roles.fetch(roleID);
@@ -93,7 +93,7 @@ client.on('message', async (message) => {
     
             break;
     
-          case('change'):
+          case(usages.commandKeys.changeCommand):
             const roleOldName = splitMessage[1];
             const roleNewName = splitMessage[2];
 
@@ -120,15 +120,15 @@ client.on('message', async (message) => {
             break;
 
           default:
-            botMessage = await message.reply("That is not a valid command!");
+            botMessage = await message.reply(messages.invalidCommandMessage);
             break;
         }
       }
       else {
-        botMessage = await message.reply("Send commands only on **command** text channel!!");
+        botMessage = await message.reply(messages.incorrectServerMessage);
       }
 
-      const delay = 5 * 1000;
+      const delay = utils.deleteDelay;
 
       message.delete({
         timeout: delay
@@ -140,7 +140,7 @@ client.on('message', async (message) => {
     }
   }catch(err) {
     console.log(err);
-    message.reply("Ocorreu um erro inesperado, procure algum veterano para resolver sentimos muito :c");
+    message.reply(messages.errorMessage);
   }
 });
 
