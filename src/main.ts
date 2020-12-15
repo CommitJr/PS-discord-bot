@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-import { CategoryChannel, Client, Guild, Role } from 'discord.js';
+import { CategoryChannel, Client, Guild, Role, TextChannel } from 'discord.js';
 import messages from './utils/messages';
 import IDs from './utils/IDs';
 import roles from './utils/roles';
@@ -14,6 +14,12 @@ const client = new Client();
 roles();
 
 client.on('ready', async () => {
+  const commandChannel = client.channels.cache.get(IDs.commandChannelID) as TextChannel;
+
+  await commandChannel.bulkDelete(100);
+
+  commandChannel.send("I'm ready for use");
+
   console.log(`Logged in as - ${client.user ? client.user.tag:""}!`);
 });
 
@@ -54,8 +60,7 @@ client.on('message', async (message) => {
       const guild = client.guilds.cache.get(IDs.guildID) as Guild;
       const command = splitMessage[0].slice(1);
 
-      if(message.channel.id === IDs.commandChannelID){
-    
+      if(message.channel.id === IDs.commandChannelID){    
         switch (command) {
           case (usages.commandKeys.helpCommand):
             message.author.send(messages.helpMessage);
@@ -173,6 +178,9 @@ client.on('message', async (message) => {
         timeout: delay
       }):'';
     }
+    else if(message.channel.id === IDs.commandChannelID &&
+      message.channel.messages.cache.array().length > 1 &&
+      !message.author.bot) message.delete();
   }catch(err) {
     console.log(err);
     message.reply(messages.errorMessage);
