@@ -7,5 +7,8 @@ export default {
     joinCommand: "join",
     helpCommand: "help",
   },
+  admCommandKeys: {
+    deleteCommand: "delete",
+  },
   deleteDelay: 5 * 1000
 }

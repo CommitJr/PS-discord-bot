@@ -51,4 +51,6 @@ export default{
   "resolver sentimos muito :c",
 
   invalidCommandMessage: "That is not a valid command!",
+
+  deletedSquadMessage: "Squad deletado com sucesso!",
 }
