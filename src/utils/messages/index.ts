@@ -25,10 +25,9 @@ export default{
 
     createExplain([usages.commandKeys.createCommand, "<SQUAD_NAME>"], 
     "cria um canal de texto e voz " +
-    "para seu squad utilizar durante o processo seletivo. O Comando e o nome " +
-    "passado em seguida devem, necessariamente, estar separados por vírgula. " +
+    "para seu squad utilizar durante o processo seletivo. " +
     "Quando utilizar esse comando um ID será gerado e enviado diretamente " +
-    "no seu chat privado (esse ID será útil no comando seguinte)") + "\n" +
+    "no seu chat privado (você precisará desse ID!!);") + "\n" +
 
     createExplain([usages.commandKeys.joinCommand, "<SQUAD_ID>"], 
     "você vai utilizar esse comando para entrar no squad previamente criado. " +
@@ -40,10 +39,17 @@ export default{
 
     "\n\n" +
 
+    "Utilize o discord o máximo possível, diferentemente grupos do WhatsApp " +
+    "ou Telegram, todos os coordenadores terão acesso ao chat dele para " +
+    "avaliar o seu time ao final do processo. " +
+
+    "\n\n" +
+
     "O bot foi criado, também, com o intuito de avaliar a comunicação do " +
-    "time para organizarem sua equipe e ajudar uns aos outros. Então as " +
-    "mensagens enviadas para o bot e respondidas por ele rapidamente serão " +
-    "apagadas para que outros grupos não se beneficiem do seu esforço :wink:",
+    "time para organizarem sua equipe e ajudar uns aos outros com possíveis " +
+    "dificuldades. Então as mensagens enviadas para o bot e respondidas por " +
+    "ele rapidamente serão apagadas para que outros grupos não se beneficiem " +
+    "do seu esforço :wink:",
 
   incorrectServerMessage: "Send commands only on **command** text channel!",
 
@@ -52,5 +58,7 @@ export default{
 
   invalidCommandMessage: "That is not a valid command!",
 
-  deletedSquadMessage: "Squad deletado com sucesso!",
+  deletedSquadMessage: "Squad deleted successful!",
+
+  helloMessage: "I'm ready for use, for discover my commands type **>help**",
 }

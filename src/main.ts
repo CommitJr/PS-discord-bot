@@ -13,15 +13,18 @@ const client = new Client();
 
 roles();
 
-client.on('ready', async () => {
+async function resetChannel(){
   const commandChannel = client.channels.cache.get(IDs.commandChannelID) as TextChannel;
 
-  await commandChannel.bulkDelete(100);
+  let fetched;
 
-  commandChannel.send("I'm ready for use");
+  do {
+    fetched = await commandChannel.messages.fetch({limit: 100});
+    commandChannel.bulkDelete(fetched,true);
+  }while(fetched.size > 0);
 
-  console.log(`Logged in as - ${client.user ? client.user.tag:""}!`);
-});
+  commandChannel.send(messages.helloMessage);
+}
 
 async function createSquadChannel(role:Role, guild:Guild) {
 
@@ -185,6 +188,12 @@ client.on('message', async (message) => {
     console.log(err);
     message.reply(messages.errorMessage);
   }
+});
+
+client.on('ready', async () => {
+  resetChannel();
+
+  console.log(`Logged in as - ${client.user ? client.user.tag:""}!`);
 });
 
 // Log our bot in using the token from https://discord.com/developers/applications

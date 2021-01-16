@@ -10,5 +10,5 @@ export default {
   admCommandKeys: {
     deleteCommand: "delete",
   },
-  deleteDelay: 5 * 1000
+  deleteDelay: parseInt(process.env.DELETE_DELAY||"2", 10) * 1000
 }
