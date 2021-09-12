@@ -4,9 +4,9 @@ export const roles = {
 }
 
 export default {
-  welcomeChannelID: "780877811841499157",
-  roleMessageID: "785953539272867850",
-  guildID: "774731978997760040",
-  commandChannelID: "785902598900285460",
-  admChannelID: "774739996972023818"
+  welcomeChannelID: process.env.welcomeChannelID || '',
+  roleMessageID: process.env.roleMessageID || '',
+  guildID: process.env.guildID || '',
+  commandChannelID: process.env.commandChannelID || '',
+  admChannelID: process.env.admChannelID || ''
 }
