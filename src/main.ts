@@ -1,4 +1,5 @@
 import { CategoryChannel, Client, Guild, Role, TextChannel } from 'discord.js';
+import express from 'express';
 import './config/dotenv';
 import { default as usages, default as utils } from './utils';
 import IDs from './utils/IDs';
@@ -188,8 +189,16 @@ client.on('message', async (message) => {
 
 client.on('ready', async () => {
   resetChannel();
+  
+  const log = `Logged in as - ${client.user ? client.user.tag:""}!`;
 
-  console.log(`Logged in as - ${client.user ? client.user.tag:""}!`);
+  const app = express()
+
+  app.get('/', (req,res) => res.send(log))
+
+  console.log(log);
+
+  app.listen(process.env.PORT || 3000);
 });
 
 // Log our bot in using the token from https://discord.com/developers/applications
