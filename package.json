@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "tsnd --transpile-only --ignore-watch node_modules --respawn src/main.ts"
+    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/main.ts",
+    "build": "npx tsc",
+    "start": "node build/main.js"
   },
   "dependencies": {
     "discord.js": "^12.3.1",
