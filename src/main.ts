@@ -1,17 +1,15 @@
+import { CategoryChannel, Client, Guild, Role, TextChannel } from 'discord.js';
 import dotenv from 'dotenv';
+import { default as usages, default as utils } from './utils';
+import IDs from './utils/IDs';
+import messages from './utils/messages';
+import roles from './utils/roles';
 
 dotenv.config();
 
-import { CategoryChannel, Client, Guild, Role, TextChannel } from 'discord.js';
-import messages from './utils/messages';
-import IDs from './utils/IDs';
-import roles from './utils/roles';
-import usages from './utils';
-import utils from './utils';
-
 const client = new Client();
 
-roles();
+roles(process.env.BOT_TOKEN);
 
 async function resetChannel(){
   const commandChannel = client.channels.cache.get(IDs.commandChannelID) as TextChannel;
