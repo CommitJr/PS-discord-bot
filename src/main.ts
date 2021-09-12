@@ -1,11 +1,9 @@
 import { CategoryChannel, Client, Guild, Role, TextChannel } from 'discord.js';
-import dotenv from 'dotenv';
+import './config/dotenv';
 import { default as usages, default as utils } from './utils';
 import IDs from './utils/IDs';
 import messages from './utils/messages';
 import roles from './utils/roles';
-
-dotenv.config();
 
 const client = new Client();
 
