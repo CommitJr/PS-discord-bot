@@ -23,18 +23,18 @@ export default{
     createExplain([usages.commandKeys.helpCommand], "para solicitar essa " + 
     "mensagem de ajuda") + "\n" +
 
-    createExplain([usages.commandKeys.createCommand, "<SQUAD_NAME>"], 
+    createExplain([usages.commandKeys.createCommand, "SQUAD_NAME"], 
     "cria um canal de texto e voz " +
     "para seu squad utilizar durante o processo seletivo. " +
     "Quando utilizar esse comando um ID será gerado e enviado diretamente " +
     "no seu chat privado (você precisará desse ID!!);") + "\n" +
 
-    createExplain([usages.commandKeys.joinCommand, "<SQUAD_ID>"], 
+    createExplain([usages.commandKeys.joinCommand, "SQUAD_ID"], 
     "você vai utilizar esse comando para entrar no squad previamente criado. " +
     "Até mesmo o criador do time deverá utilizá-lo") + "\n" +
 
-    createExplain([usages.commandKeys.changeCommand, "<SQUAD_OLD_NAME>", 
-    "<SQUAD_NEW_NAME>"], "caso queira mudar o nome do squad você deve " + 
+    createExplain([usages.commandKeys.changeCommand, "SQUAD_OLD_NAME", 
+    "SQUAD_NEW_NAME"], "caso queira mudar o nome do squad você deve " + 
     "utilizar esse comando") +
 
     "\n\n" +
